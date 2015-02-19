@@ -9,20 +9,14 @@ define([
         events : {'click #sendButton' : 'renderResults'},
         dividend : 5,
         result: null,
-        input: function(){return document.getElementById("inputNumber") },
         calculate : function (dividend)
         {
-            var val = this.input.value
-            return 2000 // !isNaN(parseFloat( val) ? val/dividend : this.onError());
+            var val = document.getElementById("inputNumber").value
+            return isNaN(parseFloat(val)) ? "<h3 style='color:#ff00ff;;'>ERROR: Please enter a number</h3>" : 'The answer is ' +String(val/this.dividend);
         },
-        onError:function(){
-            alert("ERROR")
-        },
-        
-        renderResults: function () {
-            this.result = this.calculate(this.dividend);
 
-                $('#result').html('The answer is ' + this.calculate(this.dividend));
+        renderResults: function () {
+                $('#result').html(this.calculate(this.dividend));
         },
 
         render: function () {

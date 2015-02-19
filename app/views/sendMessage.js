@@ -12,13 +12,15 @@ define([
         render: function() {
 
             $(this.el).html(template);
-            $('#sendButton').on('click',function(event) 
+            /*
+             this was causing the issue - clashing with 'calculate.js'
+
+             $('#sendButton').on('click',function(event)
             {
                 $('#result').html("You sent '"+ $('#messageText').val() + "' to this view");
-                console.log("RENDER --  ", this.result)
-
 
             });
+            */
         }
     });
 
