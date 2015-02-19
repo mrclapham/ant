@@ -8,11 +8,11 @@ var app = express();
 
 app.set('title','red ant');
 
-app.use(express.static(path.join(__dirname, 'app')));
+app.use(express.static(path.join(__dirname, '')));
 
 
 /* serves main page */
-app.use("/", express.static(__dirname + 'app/index.html'));
+app.use("/", express.static(__dirname + 'index.html'));
 
 
 var port = process.env.PORT || 5090;

@@ -8,16 +8,23 @@ define([
         el: '.content',
         events : {'click #sendButton' : 'renderResults'},
         dividend : 5,
-        
+        result: null,
+        input: function(){return document.getElementById("inputNumber") },
         calculate : function (dividend)
         {
-
+            var val = this.input.value
+            return 2000 // !isNaN(parseFloat( val) ? val/dividend : this.onError());
+        },
+        onError:function(){
+            alert("ERROR")
         },
         
         renderResults: function () {
-        	$('#result').html('The answer is ' + this.calculate(this.dividend));
+            this.result = this.calculate(this.dividend);
+
+                $('#result').html('The answer is ' + this.calculate(this.dividend));
         },
-        
+
         render: function () {
 
             $(this.el).html(template);

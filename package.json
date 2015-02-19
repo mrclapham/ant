@@ -6,7 +6,7 @@
     "dependencies": {
         "bower": "^1.3.12",
         "cors": "^2.4.2",
-        "express": "^4.1.1",
+        "express": "^4.1.1"
     },
     "devDependencies": {
 
@@ -18,12 +18,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/mrClapham/b_swan_test.git"
+        "url": "https://github.com/mrClapham/ant.git"
     },
     "author": "Graham Clapham",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/mrClapham/b_swan_test/issues"
+        "url": "https://github.com/mrClapham/ant/issues"
     },
-    "homepage": "https://github.com/mrClapham/b_swan_test"
+    "homepage": "https://github.com/mrClapham/ant"
 }

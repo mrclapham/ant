@@ -2,8 +2,10 @@ define([
     'jquery',
     'lodash',
     'backbone',
-    'text!templates/modules/sendMessage.htm'
-], function(_, Backbone, $, template) {
+    'text!templates/modules/sendMessage.html'
+], function($, _, Backbone, template) {
+
+    // again - the dependencies were in the wrong order and the 'l' was missing from the template path.
     var SendMessageView = Backbone.View.extend({
         el: '.content',
                 
@@ -12,7 +14,10 @@ define([
             $(this.el).html(template);
             $('#sendButton').on('click',function(event) 
             {
-                $('#result').html("You sent '"+ $('#messageText').val() + "' to this view"):
+                $('#result').html("You sent '"+ $('#messageText').val() + "' to this view");
+                console.log("RENDER --  ", this.result)
+
+
             });
         }
     });
