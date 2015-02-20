@@ -14,7 +14,7 @@ define([
             $(this.el).html(template);
 
 
-             $('#sendButton').on('click',function(event)
+             $('#sendMessageButton').on('click',function(event)
             {
                 $('#result').html("You sent '"+ $('#messageText').val() + "' to this view");
 

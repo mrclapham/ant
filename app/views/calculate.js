@@ -11,7 +11,15 @@ define([
         result: null,
         calculate : function (dividend)
         {
-            var val = document.getElementById("inputNumber").value
+            var val = null;
+            try{
+                val = document.getElementById("inputNumber").value
+            }catch(e){
+                //-- it sometimes errors if the Dom has not rendered.
+            }
+
+
+
             return isNaN(parseFloat(val)) ? "<h3 style='color:#ff00ff;;'>ERROR: Please enter a number</h3>" : 'The answer is ' +String(val/this.dividend);
         },
 
@@ -22,7 +30,7 @@ define([
         render: function () {
 
             $(this.el).html(template);
-            
+
             $('.dividend-value').html(this.dividend);
         }
     });
