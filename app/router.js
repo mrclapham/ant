@@ -10,7 +10,9 @@ define([
             // Pages
             'sendMessage': 'sendMessage',
             'calculate' : 'calculate',
-    
+            'daysOfWeek' : 'daysOfWeek',
+            'stores' : 'stores',
+
             // Default - catch all
             '*actions': 'defaultAction'
         }
@@ -38,9 +40,28 @@ define([
 
         });
 
+
+        router.on('route:daysOfWeek', function(parameters) {
+
+            require(['views/daysOfWeek'], function(DaysOfWeekView) {
+                var view = Vm.create(appView, 'stores', DaysOfWeekView);
+                view.render();
+            });
+
+        });
+
+        router.on('route:stores', function(parameters) {
+
+            require(['views/stores'], function(StoresView) {
+                var view = Vm.create(appView, 'stores', StoresView);
+                view.render();
+            });
+
+        });
+
         router.on('route:defaultAction', function(actions) {
-           
-           
+
+
         });
 
         Backbone.history.start();
