@@ -27,10 +27,8 @@ define([
                 returnString+=this.makeLi(new Date(startDate));
             }
             returnString+='</ul>';
-            console.log(returnString)
-           return(returnString);
 
-            //return "This task to be completed"
+           return(returnString);
         },
 
         render: function () {

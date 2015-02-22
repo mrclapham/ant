@@ -14,6 +14,8 @@ It's a long time since I've done any Backbone and this was a *very* Backbone ori
 
 Anyway, I dusted off my O'Rielly Backbone book and got stuck in. I know item 3c - the scoping exercise - will not be executed in a Backbone way. I set the global vars as a singleton class, however, I'm sure there is a specific Backbone or Require technique you had in mind.
 
+
+
 ###Installation
 
 If you want to run locally you need Node and Bower installed.
@@ -45,7 +47,5 @@ and you should see it on [http://localhost:5090/](http://localhost:5090/)
 		
 
 Have a look round my GitHub account - it will be a better indicator of my coding.
-
-There is a test project on GitHub I did for another interview at [https://github.com/mrClapham/b_swan_test](https://github.com/mrClapham/b_swan_test) . It was done in Anguala and D3. I withdrew my application as it looked like a sideways move, but it was an exercise more in my comfort zone as I got to choose the technology. Again there is a link to it on Heroku [https://gclapham-swan.herokuapp.com/#/](https://gclapham-swan.herokuapp.com/#/).
  
 The Oslo hackathon project is worth a look too: [https://gentle-thicket-7917.herokuapp.com/#/](https://gentle-thicket-7917.herokuapp.com/#/) and the Canvas Shoot-out: [https://canvas-shootout.herokuapp.com/#/](https://canvas-shootout.herokuapp.com/#/) where I experimented with a bunch of canvas/svg libraries.

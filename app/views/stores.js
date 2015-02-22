@@ -71,14 +71,12 @@ define([
             var _this = this
             if (navigator.geolocation) {
                 var timeoutVal = 10000; // keep it shortish
-
+                // Fail silently - they don't need to know ou can't get the geolocation data
                 var displayPosition = function(position) {
                     // I'm only going to set this once - when first entering
                     _this.latLongSet = true
                     _this.setLocation({lat:position.coords.latitude, lng:position.coords.longitude })
-
                 }
-
                 var displayGeoError = function(error) {
                     var errors = {
                         1: 'Permission denied',
@@ -87,8 +85,6 @@ define([
                     };
                     console.log("Error: " + errors[error.code]);
                 }
-
-
                 navigator.geolocation.getCurrentPosition(
                     displayPosition,
                     displayGeoError,
@@ -98,8 +94,6 @@ define([
             else {
                 console.log("Geolocation is not supported by this browser");
             }
-
-
         },
         initMap:function(){
 
@@ -121,8 +115,7 @@ define([
             });
 
             this._map.setView([this.lat, this.long], this.zoom);
-            // add an OpenStreetMap tile layer - give them their credit.
-            // The bog standard OSM tiles - if I need to fall back
+            // The bog standard OSM tiles - if I need to fall back - otherwise use the Toner theme
 //            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 //                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 //            }).addTo(this._map);
