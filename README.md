@@ -14,8 +14,6 @@ It's a long time since I've done any Backbone and this was a *very* Backbone ori
 
 Anyway, I dusted off my O'Rielly Backbone book and got stuck in. I know item 3c - the scoping exercise - will not be executed in a Backbone way. I set the global vars as a singleton class, however, I'm sure there is a specific Backbone or Require technique you had in mind.
 
-I opted for a regular $.ajax call to pull in the webservice. Pulling the jsonp into the Collection was a pain using the built-in 'fetch' method of the Collection as I couldn't find a way to change the name of the callback and kept getting XML. 
-
 ###Installation
 
 If you want to run locally you need Node and Bower installed.
