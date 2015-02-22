@@ -1,10 +1,32 @@
-<h1>Stores</h1>
-<input id="store_lat" type="text" value="51.5072">
-<input id="store_long" type="text" value="0.1275">
-<input id ="store_distance" type="text" value="50">
+<div class="row">
+
+    <div class = "col-md-4" >
+        <h3>Find your nearest 5 branches of Top Shop</h3>
+        <p>Wait a few seconds an we will try and get your current location. You may need to give your web browser permission (check for any messages at the top of the page).</p>
+        <p>To change the location you can drag the pink arrow and click search again.</p>
+    </div>
+    <div class = "col-md-4" >
+
+    <label for="store_lat">Lattitude</label>
+    <input id="store_lat" type="text" value="51.5072">
+    <br />
+
+    <label for="store_long">Longitude</label>
+    <input id="store_long" type="text" value="0.1275">
+    <br />
+
+    <label for="store_distance">Distance from location in KM</label>
+    <input id ="store_distance" type="text" value="50">
+
+    <br />
+    <button class="btn btn-info" id="store_search">Search</button>
+    <br />
+    </div>
+
+</div>
 
 
-<button id="store_search">Search</button>
+<hr />
 <div id="store-map"> </div>
 <ul id="stores-list"></ul>
 

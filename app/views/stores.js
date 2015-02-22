@@ -16,6 +16,7 @@ define([
             _.bindAll(this, 'render')
         },
         storeData:null,
+        latLongSet:false,
         latMin:-90,
         latMax:90,
         longMin:-180,
@@ -24,10 +25,12 @@ define([
         long:-0.1198,
         dist:50,
         res:5,
+        zoom:12,
         brand:12556,
         markers:[],
         requestStoreData:function(){
             var _this = this
+            this._storesCollection.reset();
 
             this.lat  = document.getElementById('store_lat').value
             this.long = document.getElementById('store_long').value
@@ -63,9 +66,44 @@ define([
         getQueryString : function(){
             return enums.getInstance().webserviceURL+"?brand=12556&jsonp_callback=results&lat="+this.lat+"&long="+this.long+"&dist="+this.dist+"&res=5";
         },
-        initMap:function(){
-            // create a map in the "map" div, set the view to a given place and zoom
+        initGeoLocation:function(){
+            var _this = this
+            if (navigator.geolocation) {
+                var timeoutVal = 10000; // keep it shortish
 
+                var displayPosition = function(position) {
+                    // I'm only going to set this once - when first entering
+                    _this.latLongSet = true
+                    _this.setLocation({lat:position.coords.latitude, lng:position.coords.longitude })
+
+                }
+
+                var displayGeoError = function(error) {
+                    var errors = {
+                        1: 'Permission denied',
+                        2: 'Position unavailable',
+                        3: 'Request timeout'
+                    };
+                    console.log("Error: " + errors[error.code]);
+                }
+
+
+                navigator.geolocation.getCurrentPosition(
+                    displayPosition,
+                    displayGeoError,
+                    { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+                );
+            }
+            else {
+                console.log("Geolocation is not supported by this browser");
+            }
+
+
+        },
+        initMap:function(){
+
+           !this.latLongSet ? this.initGeoLocation() : console.log("geolocation set already.")
+            // create a map in the "map" div, set the view to a given place and zoom
             if ( this._map ) delete this._map;
 
                 this._map = L.map('store-map')
@@ -76,39 +114,50 @@ define([
 
             var locationIcon = L.icon({
                 iconUrl: '../img/yoarehere.png',
-//                iconRetinaUrl: 'my-icon@2x.png',
                 iconSize: [22, 40],
                 iconAnchor: [22, 40],
                 popupAnchor: [-10, -40]
-//                shadowUrl: 'my-icon-shadow.png',
-//                shadowRetinaUrl: 'my-icon-shadow@2x.png',
-//                shadowSize: [68, 95],
-//                shadowAnchor: [22, 94]
             });
 
-
-            this._map.setView([this.lat, this.long], 13);
+            this._map.setView([this.lat, this.long], this.zoom);
             // add an OpenStreetMap tile layer - give them their credit.
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(this._map);
 
-            // add a marker in the given location, attach some popup content to it and open the popup
-            L.marker([this.lat, this.long], {draggable:true, icon:locationIcon}).addTo(this._map)
-                .bindPopup('Your location.')
-                .openPopup();
-            // Then add markers for all the Top Shops
+
+            //  add markers for all the Top Shops
 
             this._storesCollection.each(function(d){
-                console.log(d.attributes.latitude, d.attributes.longitude)
                 L.marker([d.attributes.latitude, d.attributes.longitude]).addTo(_this._map)
                     .bindPopup(d.attributes.storeName)
                     .openPopup();
             })
 
+            // Then add a marker in the given location, attach some popup content to it and open the popup
+            this.location = L.marker([this.lat, this.long], {draggable:true, icon:locationIcon}).addTo(this._map)
+                .bindPopup('Your location.')
+                .openPopup();
 
-            //TODO:
+            this.location.on('dragend', function(e) {
+                //alert(_this.location.getLatLng());
+                _this.setLocation(_this.location.getLatLng())
+            });
         },
+        setLocation:function(latlang){
+
+            console.log(latlang)
+            this.lat  = latlang.lat;
+            this.long = latlang.lng;
+
+            document.getElementById('store_lat').value = this.lat;
+            document.getElementById('store_long').value = this.long;
+
+            this.location.setLatLng([this.lat, this.long]);
+            this._map.setView([this.lat, this.long]);
+
+        },
+
         render: function() {
             var _this = this;
             $(this.el).html(template);

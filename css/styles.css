@@ -7,7 +7,7 @@
 /*
 ### Third Party
 */
-@import url("bootstrap.css");
+@import url("../bower_components/bootstrap/dist/css/bootstrap.css");
 
 #store-map{
     width: 500px;
