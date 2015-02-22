@@ -2,12 +2,13 @@ define([
     'jquery',
     'underscore',
     'leaflet',
+    'stamen',
     'enums',
     'backbone',
     '../models/storesCollection',
     '../views/storeView',
     'text!templates/modules/stores.html'
-], function($, _, leaflet, enums,  Backbone, storesCollection, storeView, template) {
+], function($, _, leaflet, stamen, enums,  Backbone, storesCollection, storeView, template) {
 
     var StoresView = Backbone.View.extend({
         el: '.content',
@@ -106,7 +107,7 @@ define([
             // create a map in the "map" div, set the view to a given place and zoom
             if ( this._map ) delete this._map;
 
-                this._map = L.map('store-map')
+            this._map = L.map('store-map')
             this.updateMap()
         },
         updateMap:function(){
@@ -121,9 +122,14 @@ define([
 
             this._map.setView([this.lat, this.long], this.zoom);
             // add an OpenStreetMap tile layer - give them their credit.
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(this._map);
+            // The bog standard OSM tiles - if I need to fall back
+//            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+//                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//            }).addTo(this._map);
+
+               // make it look cool and high contrast
+            var tonerLayer = new L.StamenTileLayer("toner");
+            this._map.addLayer(tonerLayer);
 
 
             //  add markers for all the Top Shops
