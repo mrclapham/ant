@@ -32,8 +32,6 @@ define([
             this.lat  = document.getElementById('store_lat').value
             this.long = document.getElementById('store_long').value
 
-            console.log("LATTITUDE ",this.lat)
-
             $.ajax({
                 type: 'GET',
                 cache: false,
@@ -52,14 +50,11 @@ define([
         onSuccess:function(data){
             var _this = this;
 
-            //this.storeData = data.stores.store;
-
             this._storesCollection.reset();
             _.forEach(data.stores.store, function(d){
                 _this._storesCollection.push(d)
             })
 
-            console.log( this._storesCollection );
             this.render();
         },
         onError:function(XHR, textStatus, errorThrown){
@@ -70,20 +65,34 @@ define([
         },
         initMap:function(){
             // create a map in the "map" div, set the view to a given place and zoom
-           // if ( !this._map )
-                this._map = L.map('store-map').setView([this.lat, this.long], 13);
 
-            // add an OpenStreetMap tile layer
+            if ( this._map ) delete this._map;
+
+                this._map = L.map('store-map')
+            this.updateMap()
+        },
+        updateMap:function(){
+            var _this = this;
+            this._map.setView([this.lat, this.long], 13);
+            // add an OpenStreetMap tile layer - give them their credit.
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(this._map);
 
-        // add a marker in the given location, attach some popup content to it and open the popup
-            L.marker([51.5, -0.09]).addTo(this._map)
+            // add a marker in the given location, attach some popup content to it and open the popup
+            L.marker([this.lat, this.long]).addTo(this._map)
                 .bindPopup('Your location.')
                 .openPopup();
-        },
-        updateMap:function(){
+
+
+            this._storesCollection.each(function(d){
+                console.log(d.attributes.latitude, d.attributes.longitude)
+                L.marker([d.attributes.latitude, d.attributes.longitude]).addTo(_this._map)
+                    .bindPopup(d.attributes.storeName)
+                    .openPopup();
+            })
+
+
             //TODO:
         },
         render: function() {
@@ -97,7 +106,9 @@ define([
                 _this._storeList.append( sv.render() );
             })
 
-            setTimeout(function(){_this.initMap()}, 2000)
+            //this._map  ? _this.updateMap() : this.initMap() ;
+
+            this.initMap();
 
             $('#store_search').on('click',function(event)
             {
