@@ -4,18 +4,45 @@ define([
     'leaflet',
     'enums',
     'backbone',
+    '../models/storesCollection',
+    '../views/storeView',
     'text!templates/modules/stores.html'
-], function($, _, leaflet, enums,  Backbone, template) {
+], function($, _, leaflet, enums,  Backbone, storesCollection, storeView, template) {
 
     var StoresView = Backbone.View.extend({
         el: '.content',
+        initialize:function(){
+            this._storesCollection = new storesCollection([], {brand:this.brand,lat:this.lat, long:this.long, dist:this.dist, res:this.res});
+            _.bindAll(this, 'render')
+
+//            this._storesCollection.fetch({
+//                reset: true,
+//                dataType: 'jsonp',
+//                data:{brand:this.brand,lat:this.lat, long:this.long, dist:this.dist, res:this.res},
+//                success : function(collection) {
+//                    //$('#example_content').html(catTweetsView.render().el);
+//                    console.log("FETCH SUCCESS --- ")
+//                },
+//                error:function(e){
+//                    console.log("ERROR : ",e)
+//                }
+//            });
+        },
         storeData:null,
         lat:51.511,
         long:-0.1198,
+        dist:50,
+        res:5,
+        brand:12556,
         markers:[],
         requestStoreData:function(){
             var _this = this
-            console.log(enums.getInstance().webserviceURL)
+
+            this.lat  = document.getElementById('store_lat').value
+            this.long = document.getElementById('store_long').value
+
+            console.log("LATTITUDE ",this.lat)
+
             $.ajax({
                 type: 'GET',
                 cache: false,
@@ -30,20 +57,30 @@ define([
                 }
             });
         },
+
         onSuccess:function(data){
-            this.storeData = data.stores.store;
-            this.initMap();
-            console.log( this.storeData );
+            var _this = this;
+
+            //this.storeData = data.stores.store;
+
+            this._storesCollection.reset();
+            _.forEach(data.stores.store, function(d){
+                _this._storesCollection.push(d)
+            })
+
+            console.log( this._storesCollection );
+            this.render();
         },
         onError:function(XHR, textStatus, errorThrown){
             console.log(XHR, textStatus, errorThrown);
         },
         getQueryString : function(){
-            return enums.getInstance().webserviceURL+"?brand=12556&jsonp_callback=results&lat="+this.lat+"&long=0.1275&dist=50&res=5";
+            return enums.getInstance().webserviceURL+"?brand=12556&jsonp_callback=results&lat="+this.lat+"&long="+this.long+"&dist="+this.dist+"&res=5";
         },
         initMap:function(){
             // create a map in the "map" div, set the view to a given place and zoom
-            if ( !this._map ) this._map = L.map('store-map').setView([this.lat, this.long], 13);
+           // if ( !this._map )
+                this._map = L.map('store-map').setView([this.lat, this.long], 13);
 
             // add an OpenStreetMap tile layer
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -56,20 +93,32 @@ define([
                 .openPopup();
         },
         updateMap:function(){
-
-
-
+            //TODO:
         },
         render: function() {
             var _this = this;
             $(this.el).html(template);
+            this.lat  = document.getElementById('store_lat').value = this.lat;
+            this.long = document.getElementById('store_long').value = this.long;
+
+            this._storeList = $('#stores-list');
+
+//            console.log(this._storeList)
+            this._storesCollection.each(function(store){
+                //console.log('STORE : ', store)
+                var sv = new storeView({model: store, collection:_this._storesCollection })
+               // _this._storeList.append('<li>hello'+store.attributes.address1+'</li>')
+                //console.log("SV +++++ ",sv.render())
+                _this._storeList.append( sv.render() );
+            })
+
+            setTimeout(function(){_this.initMap()}, 2000)
 
             $('#store_search').on('click',function(event)
             {
                _this.requestStoreData()
 
             });
-
         }
     });
 
