@@ -14,21 +14,12 @@ define([
         initialize:function(){
             this._storesCollection = new storesCollection([], {brand:this.brand,lat:this.lat, long:this.long, dist:this.dist, res:this.res});
             _.bindAll(this, 'render')
-
-//            this._storesCollection.fetch({
-//                reset: true,
-//                dataType: 'jsonp',
-//                data:{brand:this.brand,lat:this.lat, long:this.long, dist:this.dist, res:this.res},
-//                success : function(collection) {
-//                    //$('#example_content').html(catTweetsView.render().el);
-//                    console.log("FETCH SUCCESS --- ")
-//                },
-//                error:function(e){
-//                    console.log("ERROR : ",e)
-//                }
-//            });
         },
         storeData:null,
+        latMin:-90,
+        latMax:90,
+        longMin:-180,
+        longMax:180,
         lat:51.511,
         long:-0.1198,
         dist:50,
@@ -100,15 +91,9 @@ define([
             $(this.el).html(template);
             this.lat  = document.getElementById('store_lat').value = this.lat;
             this.long = document.getElementById('store_long').value = this.long;
-
             this._storeList = $('#stores-list');
-
-//            console.log(this._storeList)
             this._storesCollection.each(function(store){
-                //console.log('STORE : ', store)
                 var sv = new storeView({model: store, collection:_this._storesCollection })
-               // _this._storeList.append('<li>hello'+store.attributes.address1+'</li>')
-                //console.log("SV +++++ ",sv.render())
                 _this._storeList.append( sv.render() );
             })
 

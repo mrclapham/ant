@@ -10,8 +10,28 @@
 @import url("bootstrap.css");
 
 #store-map{
-    width: 100%;
+    width: 500px;
+    float:left;
     height: 800px;
 }
 
 
+#stores-list{
+    width: 240px;
+    list-style: none;
+    margin: 0;
+    padding:0;
+    float:left;
+}
+
+.store-cell{
+    padding:5px;
+
+}
+
+
+.store-cell p{
+    padding:0px;
+    margin:0px;
+
+}
