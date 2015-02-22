@@ -73,6 +73,20 @@ define([
         },
         updateMap:function(){
             var _this = this;
+
+            var locationIcon = L.icon({
+                iconUrl: '../img/yoarehere.png',
+//                iconRetinaUrl: 'my-icon@2x.png',
+                iconSize: [22, 40],
+                iconAnchor: [22, 40],
+                popupAnchor: [-10, -40]
+//                shadowUrl: 'my-icon-shadow.png',
+//                shadowRetinaUrl: 'my-icon-shadow@2x.png',
+//                shadowSize: [68, 95],
+//                shadowAnchor: [22, 94]
+            });
+
+
             this._map.setView([this.lat, this.long], 13);
             // add an OpenStreetMap tile layer - give them their credit.
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -80,10 +94,10 @@ define([
             }).addTo(this._map);
 
             // add a marker in the given location, attach some popup content to it and open the popup
-            L.marker([this.lat, this.long]).addTo(this._map)
+            L.marker([this.lat, this.long], {draggable:true, icon:locationIcon}).addTo(this._map)
                 .bindPopup('Your location.')
                 .openPopup();
-
+            // Then add markers for all the Top Shops
 
             this._storesCollection.each(function(d){
                 console.log(d.attributes.latitude, d.attributes.longitude)
