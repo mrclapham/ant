@@ -5,18 +5,22 @@ Live version on Herok at: [https://ant-test.herokuapp.com](https://ant-test.hero
 
 ####Hello Red Ants.
 
-In the spirit of full disclosure, it is years since my brief flirtation with Backbone and this was a very Backbone exercise. I have been solidly Google since using Angular and Closure. It's been a while since I've used jQuery too - we try and do it in native JavaScript at Thomson Reuters.
+Please find my solution to the JavaScript test. 
+
+It was good fun but had me working with unfamilier tools. I have tried to compensate for my rusty Backbone skills with some funky map action on the 'Show Stores' page.
+
+It's a long time since I've done any Backbone and this was a *very* Backbone oriented exercise. I have been solidly Google for years, using Angular and Closure. It's been a while since I've used jQuery too - we try and do it in native JavaScript at Thomson Reuters.
 
 
-Anyway, I dusted off my O'Rielly book on Backbone and got stuck in, but don't expect Backbone best practices. I know item 3c - the scoping exercise - will not be executed in a Backbone way. I set the global vars as a singleton class, however, I'm sure there is a specific Backbone or Require technique you had in mind.
+Anyway, I dusted off my O'Rielly Backbone book and got stuck in. I know item 3c - the scoping exercise - will not be executed in a Backbone way. I set the global vars as a singleton class, however, I'm sure there is a specific Backbone or Require technique you had in mind.
 
-Pulling the jsonp webservice into the collection was a pain. I tried using the fetch method of the collection but couldn't work out how to change the 'callback' to 'jsonp_callback'. I opted for a regular $.ajax call in the end.
+I opted for a regular $.ajax call to pull in the webservice. Pulling the jsonp into the Collection was a pain using the built-in 'fetch' method of the Collection as I couldn't find a way to change the name of the callback and kept getting XML. 
 
-I've tried to compensate with a funky map. You can drag the pointer to your start position and do a search from there. 
+###Installation
 
 If you want to run locally you need Node and Bower installed.
 
-Hopefully you have Node and Bower - if not, install Node from the site
+If you haven't got Node install it from the site:
 
 [http://nodejs.org/](http://nodejs.org/)
 
