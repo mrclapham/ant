@@ -13,7 +13,7 @@ define([], function() {
         var instance;
 
         function createInstance() {
-            var instanceObject = {webserviceURL: 'http://cloudservices.arcadiagroup.co.uk/storestock/storestock'}
+            var instanceObject = {webserviceURL: 'https://cloudservices.arcadiagroup.co.uk/storestock/storestock'}
             return instanceObject;
         }
 
