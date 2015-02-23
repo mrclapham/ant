@@ -18,8 +18,6 @@ define([
                 //-- it sometimes errors if the Dom has not rendered.
             }
 
-
-
             return isNaN(parseFloat(val)) ? "<h3 style='color:#ff00ff;;'>ERROR: Please enter a number</h3>" : 'The answer is ' +String(val/this.dividend);
         },
 
