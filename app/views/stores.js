@@ -116,14 +116,15 @@ define([
 
             this._map.setView([this.lat, this.long], this.zoom);
             // The bog standard OSM tiles - if I need to fall back - otherwise use the Toner theme
-//            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-//                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//            }).addTo(this._map);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(this._map);
 
-               // make it look cool and high contrast
+               // This will make it look cool and high contrast - but there are some issues with the js loadinhg from their cdn
+            /*
             var tonerLayer = new L.StamenTileLayer("toner");
             this._map.addLayer(tonerLayer);
-
+            */
 
             //  add markers for all the Top Shops
 
