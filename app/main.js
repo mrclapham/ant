@@ -9,10 +9,10 @@ require.config({
         backbone: '../libs/backbone/backbone-min', // https://github.com/amdjs
         sinon: '../libs/sinon/sinon.js',
         leaflet: '../bower_components/leaflet/dist/leaflet',
-        stamen: 'https://stamen-maps.a.ssl.fastly.net/js/tile.stamen',
+        stamen: '../libs/stamen/tile.stamen',
         // Require.js plugins
         text: '../libs/require/text',
-        
+
         //Helper organisation - convenience
         vm: 'helpers/vm',
         events: 'helpers/events',

@@ -5,9 +5,7 @@ I have, however, gone for a pure JS solution due to my rustyness with Backbone.
 It is a singleton and may be used throughout the app to store vars and constants.
  */
 
-
 define([], function() {
-    // The dependencies were declared in the wrong order
 
     var enums = (function () {
         var instance;
