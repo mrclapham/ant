@@ -35,6 +35,7 @@ define([
 
             this.lat  = document.getElementById('store_lat').value
             this.long = document.getElementById('store_long').value
+            this.dist = document.getElementById('store_distance').value
 
             $.ajax({
                 type: 'GET',
@@ -164,6 +165,8 @@ define([
             $(this.el).html(template);
             this.lat  = document.getElementById('store_lat').value = this.lat;
             this.long = document.getElementById('store_long').value = this.long;
+            this.dist = document.getElementById('store_distance').value = this.dist;
+
             this._storeList = $('#stores-list');
             this._storesCollection.each(function(store){
                 var sv = new storeView({model: store, collection:_this._storesCollection })
